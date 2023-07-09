@@ -8,16 +8,16 @@ namespace Memory
 	inline unsigned long process_id = 0;
 	inline void* process_handle = nullptr;
 
-	inline std::uintptr_t client = 0;
+	inline uintptr_t client = 0;
 
 	void GetProcessId(std::string_view process_name);
-	std::uintptr_t GetModuleBaseAddress(std::string_view module_name);
+	uintptr_t GetModuleBaseAddress(std::string_view module_name);
 
 	void OpenHandle();
 	void Close_Handle();
 
 	template <typename T>
-	T Read(uintptr_t offset)
+	T Read(const uintptr_t offset)
 	{
 		T value;
 		ReadProcessMemory(process_handle, reinterpret_cast<LPVOID>(offset), &value, sizeof(T), nullptr);
@@ -25,7 +25,7 @@ namespace Memory
 	}
 
 	template <typename T>
-	void Write(std::uintptr_t address, T value)
+	void Write(const uintptr_t address, T value)
 	{
 		WriteProcessMemory(process_handle, reinterpret_cast<LPVOID>(address), reinterpret_cast<LPCVOID>(&value), sizeof(T), nullptr);
 	}
