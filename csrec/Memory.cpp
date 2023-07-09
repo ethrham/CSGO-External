@@ -2,7 +2,7 @@
 #include <TlHelp32.h>
 
 
-void Memory::GetProcessId(const std::string_view process_name)
+/*void Memory::GetProcessId(const std::string_view process_name)
 {
 	auto process_entry = PROCESSENTRY32{};
 	process_entry.dwSize = sizeof(PROCESSENTRY32);
@@ -54,4 +54,4 @@ void Memory::Close_Handle()
 {
 	if (process_handle)
 		CloseHandle(process_handle);
-}
+}*/

@@ -5,18 +5,19 @@
 #include "Offsets.h"
 #include "Features.h"
 
+// I PAID FOR THE RAM STICK NO STUPID APPLICATION CAN TELL ME WHAT ADDRESS I CAN AND CAN'T READ
+
 int main()
 {
-	Memory::GetProcessId("csgo.exe");
-	Memory::client = Memory::GetModuleBaseAddress("client.dll");
-	Memory::OpenHandle();
+	const Memory memory_manager("csgo.exe");
+	const std::uintptr_t client = memory_manager.GetModuleBaseAddress("client.dll");
 
 	while (true)
 	{
-		const auto local_player = Memory::Read<uintptr_t>(Memory::client + Offsets::dwLocalPlayer);
+		const auto local_player = memory_manager.Read<uintptr_t>(client + Offsets::dwLocalPlayer);
 
-		Features::Bunnyhop(local_player);
-		Features::Triggerbot(local_player);
+		Features::Bunnyhop(local_player, client, memory_manager);
+		Features::Triggerbot(local_player, client, memory_manager);
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
